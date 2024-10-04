@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 # Define color codes
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -13,12 +12,22 @@ printfn() {
     printf "$@\n"
 }
 
+datestr() {
+    date +"%y%m%d"
+}
+
 ls-funcs() {
     declare -F | grep -v _
     # copy the line from the printout to see the function definition
     # or type <func>
 }
 
+#= File/Folder Management ==================================================
+# df -h # drive usage
+# du -sh <path> #disk usage of path
+fover10() {
+	find . -type f -size +10M | xargs du -sh
+}
 
 #= GPU UTIL ================================================================
 ns() {
@@ -36,7 +45,6 @@ nvdev() {
         printfn "[Info]: CUDA_VISIBLE_DEVICES = ${GREEN}${CUDA_VISIBLE_DEVICES}${NC}"
     fi    
 }
-#= File/Folder Management ==================================================
 
 #= CONDA ===================================================================
 ls-conda-env() {
@@ -61,7 +69,7 @@ deact() {
     conda deactivate $1
 }
 
-new-conda-env() {
+nw-conda-env() {
     # e.g. create-conda some_env 3.11
     conda create -n $1 python=$2 -y
     if ! [ -z $VS_DEV_DIR ]; then
@@ -97,6 +105,31 @@ gr() {
 #= TMUX ====================================================================
 ls-tmux() {
 	tmux ls
+}
+
+nw-tmux() {
+    if [ -z "$1" ]; then
+        printfn "${RED}Error:${NC} You must provide a name for the tmux session."
+        return 1
+    fi
+    tmux new -s $(datestr)_${1}
+}
+
+at-tmux() {
+    if [ -z "$1" ]; then
+        printfn "${RED}Error:${NC} You must provide a name for the tmux attach."
+        ls-tmux
+        return 1
+    fi
+    tmux a -t ${1}
+}
+
+rm-tmux() {
+    if [ -z "$1" ]; then
+        printfn "${RED}Error:${NC} You must provide a name for the tmux session to kill."
+        return 1
+    fi
+    tmux kill-session -t ${1}
 }
 
 #= misc ====================================================================
