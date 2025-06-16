@@ -136,3 +136,40 @@ rm-tmux() {
 pprint-csv() {
     column -t -s, $@
 }
+
+list-functions() {
+    grep -E '^[a-zA-Z0-9_-]+\(\)' "${BASH_SOURCE[0]}" | sed 's/()//'
+}
+
+# Compress all pdf in a folder
+# for pdf in *.pdf; do
+#     if [[ -f "$pdf" ]]; then
+#         compress-pdf "$pdf"
+#     fi
+# done
+compress-pdf() {
+    # ebook quality (see below to change output quality)
+
+    if [[ -z "$1" ]]; then
+        echo "Usage: compress_pdf \"input file.pdf\""
+        return 1
+    fi
+
+    input_file="$1"
+    # Extract the directory and base name of the input file
+    dir=$(dirname "$input_file")/compressed
+    base=$(basename "$input_file")
+    mkdir -p $dir
+    output_file="${dir}/${base}"
+
+    # /screen → Lowest quality, smallest file size.
+    # /ebook → Better quality, still compressed.
+    # /printer → High quality, larger file.
+    # /prepress → Best quality, minimal compression.
+    # /default → Uses Ghostscript's default settings.
+
+    ghostscript -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$output_file" "$input_file"
+
+    echo "Compressed PDF saved as: $output_file"
+}
+
