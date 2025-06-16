@@ -9,6 +9,7 @@ source vs-bashutil/bash_functions.sh
 # or put this in .bashrc
 ```
 ### Usage
+1. use `ls-funcs` or `list-functions` to list all defined bash functions
 ```bash
 $ ls-funcs
 .
@@ -19,11 +20,15 @@ declare -f ls-tmux
 .
 .
 ```
+2. list conda environments
 ```bash
 $ ls-conda-env 
 # conda environments:
 #
 base                  *  /home/vuiseng9/miniforge3
 ```
+3. `host_vars.sh` employs bash array to map often-use directory to variable and define function to ease going to these paths
+
 ### TODOs
 - [ ] Unit test with [bats](https://github.com/bats-core/bats-core)
+- [ ] how to show description/example of a function
