@@ -16,7 +16,7 @@ VS_DEV_DIR=${vsdevroot[$HOSTID]}
 VS_RUN_DIR=${vsrunroot[$HOSTID]}
 VS_CONDA_DIR=${vscondaroot[$HOSTID]}
 VS_HFCACHE_DIR=${vshfroot[$HOSTID]}
-VS_CONDAENV_PREFIX=aegis-$(datestr)
+VS_PREFIX_CONDAENV=aegis-$(datestr)
 
 if ! [ -z $VS_HFCACHE_DIR ] ; then
     export HF_HOME=$VS_HFCACHE_DIR
