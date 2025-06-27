@@ -93,6 +93,10 @@ rm-conda-env() {
         fi
     fi    
 }
+
+print-site_packages-path() {
+    python -c "import site; print(site.getsitepackages()[0])"
+}
 #= GIT =====================================================================
 gs() {
     git status $@
