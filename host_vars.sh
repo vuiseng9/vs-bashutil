@@ -4,11 +4,11 @@ declare -A vsrunroot
 declare -A vscondaroot
 declare -A vshfroot #hf cache
 
-vshomeroot['MSI']=/home/vuiseng9
+vshomeroot['MSI']=/home/vs9
 vsdevroot['MSI']=/workspace/dev
 vsrunroot['MSI']=/workspace/run
-vscondaroot['MSI']=/home/vuiseng9/miniforge3
-# vshfroot['MSI']=
+vscondaroot['MSI']=/home/vs9/miniforge3
+vshfroot['MSI']=/workspace/huggingface
 
 HOSTID=$(uname -n)
 VS_HOME_DIR=${vshomeroot[$HOSTID]}
@@ -16,6 +16,7 @@ VS_DEV_DIR=${vsdevroot[$HOSTID]}
 VS_RUN_DIR=${vsrunroot[$HOSTID]}
 VS_CONDA_DIR=${vscondaroot[$HOSTID]}
 VS_HFCACHE_DIR=${vshfroot[$HOSTID]}
+VS_CONDAENV_PREFIX=aegis-$(datestr)
 
 if ! [ -z $VS_HFCACHE_DIR ] ; then
     export HF_HOME=$VS_HFCACHE_DIR
