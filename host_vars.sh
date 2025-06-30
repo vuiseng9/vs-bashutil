@@ -4,7 +4,7 @@ declare -A vsrunroot
 declare -A vscondaroot
 declare -A vshfroot #hf cache
 
-vshomeroot['MSI']=/home/vs9
+vshomeroot['MSI']=/workspace
 vsdevroot['MSI']=/workspace/dev
 vsrunroot['MSI']=/workspace/run
 vscondaroot['MSI']=/home/vs9/miniforge3
