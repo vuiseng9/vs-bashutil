@@ -5,11 +5,11 @@ declare -A vscondaroot
 declare -A vshfroot #hf cache
 
 HOSTID=$(uname -n)
-vshomeroot['$HOSTID']=/home/ubuntu
-vscondaroot['$HOSTID']=/home/ubuntu/miniforge3
-vsdevroot['$HOSTID']=/home/ubuntu/work/dev
-vsrunroot['$HOSTID']=/home/ubuntu/work/run
-vshfroot['$HOSTID']=/home/ubuntu/work/huggingface
+vshomeroot[$HOSTID]=/home/ubuntu/work
+vscondaroot[$HOSTID]=/home/ubuntu/miniforge3
+vsdevroot[$HOSTID]=/home/ubuntu/work/dev
+vsrunroot[$HOSTID]=/home/ubuntu/work/run
+vshfroot[$HOSTID]=/home/ubuntu/work/huggingface
 
 VS_HOME_DIR=${vshomeroot[$HOSTID]}
 VS_DEV_DIR=${vsdevroot[$HOSTID]}
