@@ -29,6 +29,19 @@ fover10() {
 	find . -type f -size +10M | xargs du -sh
 }
 
+nw-dir() {
+    local dir="$1"
+    # Quit early if no argument given
+    [[ -z "$dir" ]] && { echo "Usage: ${FUNCNAME[0]} <directory>" >&2; return 1; }
+
+    # If the path already exists as a directory, do nothing.
+    # Otherwise, create it (with parents) and report what happened.
+    if [[ -d "$dir" ]]; then
+        echo "$dir exists." && return 0
+    else
+        mkdir -p -- "$dir" && echo "Created directory: $dir"
+    fi
+}
 #= GPU UTIL ================================================================
 ns() {
     nvidia-smi $@
@@ -106,6 +119,26 @@ gr() {
     git remote -v
 }
 
+gc() {
+    local repo="$1"
+    local branch="${2}"
+
+    # Quit early if no argument given
+    [[ -z "$repo" ]] && { echo "Usage: ${FUNCNAME[0]} <repository-url> <branch>" >&2; return 1; }
+
+    # If the repository already exists, do nothing.
+    # Otherwise, clone it and report what happened.
+    if [[ -d "${repo##*/}" ]]; then
+        echo "${repo##*/} already exists." && return 0
+    else
+        # If a branch is specified, clone that branch; otherwise, clone the default branch.
+        if [[ -n "$branch" ]]; then
+            git clone --branch "$branch" --single-branch -- "$repo" && echo "Cloned repository: $repo (branch: $branch)"
+        else
+            git clone -- "$repo" && echo "Cloned repository: $repo (default branch)"
+        fi
+    fi
+}
 #= TMUX ====================================================================
 ls-tmux() {
 	tmux ls
