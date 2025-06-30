@@ -9,7 +9,9 @@
 # fresh VM, old disk (restart case, or other type of instance with more hardware) virginia
 
 cd ~
-git clone https://github.com/vuiseng9/vs-bashutil -b lambda
+cat << 'EOF' >> ~/.bashrc
+PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\] : \[\033[01;34m\]\w\[\033[01;31m\]$(__git_ps1)\[\033[00m\]\n$ '
+EOF
 echo "source ~/vs-bashutil/bash_functions.sh" >> ~/.bashrc
 echo "source ~/vs-bashutil/host_vars.sh" >> ~/.bashrc 
 echo "export WORKDIR=~/work" >> ~/.bashrc
@@ -37,14 +39,14 @@ bash Miniforge3-$(uname)-$(uname -m).sh -b && rm -f Miniforge3-$(uname)-$(uname 
 INSTALL_DIR=$(realpath ~/miniforge3)
 $INSTALL_DIR/bin/conda init bash
 
-# set up Huggingface home
+# set up Huggingface home, dev, run area
 nw-dir $WORKDIR/huggingface
 nw-dir $WORKDIR/dev
 nw-dir $WORKDIR/run
 # echo "export HF_HOME=$WORKDIR/huggingface" >> ~/.bashrc # redundant, already set in host_vars.sh
 
 # install vscode via snap
-sudo snap install --classic code
+# sudo snap install --classic code #because we usually open with vscode, the code is installed upon we enter the server via vscode, so we comment this out
 code --install-extension ms-python.python
 
 
