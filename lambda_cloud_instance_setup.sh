@@ -49,7 +49,9 @@ nw-dir $WORKDIR/run
 # sudo snap install --classic code #because we usually open with vscode, the code is installed upon we enter the server via vscode, so we comment this out
 code --install-extension ms-python.python
 
-
+git config --global credential.helper store
+git config --global user.email "vuiseng9@gmail.com"
+git config --global user.name "Vui Seng Chua"
 
 # Example usage
 # cd ~/work/dev
