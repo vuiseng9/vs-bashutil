@@ -2,7 +2,7 @@
 
 # This script assumes the setup is carried with lambda_cloud_instance_setup.sh
 # meant to be sourced in a conda environment 
-# please cd to where you want to set up vllm
+# please cd to where you want to set up vllm and activate the conda environment first
 
 # Install vllm
 git clone https://github.com/vllm-project/vllm.git
