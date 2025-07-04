@@ -169,6 +169,18 @@ rm-tmux() {
     tmux kill-session -t ${1}
 }
 
+#= vscode===================================================================
+# set workspace color theme
+set-vscode-theme() {
+    nw-dir .vscode
+    local theme_file=".vscode/settings.json"
+    if [ ! -f "$theme_file" ]; then
+        touch "$theme_file"
+    fi
+
+    echo '{"workbench.colorTheme": "Dracula Theme"}' >> "$theme_file"
+}
+
 #= misc ====================================================================
 pprint-csv() {
     column -t -s, $@
