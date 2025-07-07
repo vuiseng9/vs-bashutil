@@ -16,7 +16,7 @@ VS_DEV_DIR=${vsdevroot[$HOSTID]}
 VS_RUN_DIR=${vsrunroot[$HOSTID]}
 VS_CONDA_DIR=${vscondaroot[$HOSTID]}
 VS_HFCACHE_DIR=${vshfroot[$HOSTID]}
-VS_PREFIX_CONDAENV=lambda-$(datestr) # to be modified manually
+VS_PREFIX_CONDAENV=lmd-$(datestr) # to be modified manually
 
 if ! [ -z $VS_HFCACHE_DIR ] ; then
     export HF_HOME=$VS_HFCACHE_DIR
