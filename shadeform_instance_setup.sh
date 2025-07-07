@@ -43,6 +43,7 @@ git config --global credential.helper store
 git config --global user.email "vuiseng9@gmail.com"
 git config --global user.name "Vui Seng Chua"
 
+set-pacific-time()
 # Example usage
 # cd ~/work/dev
 # nw-conda-env
