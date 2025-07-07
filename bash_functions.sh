@@ -16,6 +16,12 @@ datestr() {
     date +"%y%m%d"
 }
 
+set-pacific-time() {
+    # Set the timezone to Los Angeles (Pacific Time)
+    export TZ="America/Los_Angeles"
+    sudo timedatectl set-timezone "$TZ"
+}
+
 ls-funcs() {
     declare -F | grep -v _
     # copy the line from the printout to see the function definition
