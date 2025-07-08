@@ -53,8 +53,16 @@ ns() {
     nvidia-smi $@
 }
 
+amds() {
+    amd-smi static -a -v
+}
+
 ns1() {
     nvidia-smi -l 1
+}
+
+as1() {
+    watch -n 1 amd-smi monitor
 }
 
 nvdev() {
