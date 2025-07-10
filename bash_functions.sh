@@ -53,6 +53,10 @@ ns() {
     nvidia-smi $@
 }
 
+rs() {
+    rocm-smi $@
+}
+
 amds() {
     amd-smi static -a -v
 }
@@ -79,7 +83,7 @@ install-torch() {
 
     # Install torch with CUDA support
     if [ -z "$1" ]; then
-        echo "Usage: install-torch <cuda_version>"
+        echo "Usage: install-torch <cuda_version, e.g. 126>"
         return 1
     fi
 
@@ -90,6 +94,20 @@ install-torch() {
     pip freeze | grep -E 'torch|torchvision|torchaudio' | while read -r line; do
         echo "Installed: $line"
     done
+}
+
+install-cuda-toolkit-conda() {
+    # Install the CUDA toolkit using conda
+    if [ -z "$1" ]; then
+        echo "Usage: install-cuda-toolkit-conda <cuda_version, e.g. 12.6>"
+        return 1
+    fi
+
+    local cuda_version="$1"
+    conda install -c nvidia cuda-toolkit=$cuda_version -y
+
+    # Verify installation, print the installed versions using conda list
+    conda list | grep cuda
 }
 
 #= CONDA ===================================================================
