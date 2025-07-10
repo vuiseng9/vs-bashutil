@@ -73,6 +73,25 @@ nvdev() {
     fi    
 }
 
+install-torch() {
+    # Uninstall existing torch packages if any
+    pip uninstall -y torch torchvision torchaudio
+
+    # Install torch with CUDA support
+    if [ -z "$1" ]; then
+        echo "Usage: install-torch <cuda_version>"
+        return 1
+    fi
+
+    local cuda_version="$1"
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu${cuda_version}
+
+    # Verify installation, print the installed versions using pip freeze
+    pip freeze | grep -E 'torch|torchvision|torchaudio' | while read -r line; do
+        echo "Installed: $line"
+    done
+}
+
 #= CONDA ===================================================================
 ls-conda-env() {
     conda info --envs
