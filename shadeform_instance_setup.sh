@@ -20,8 +20,7 @@ source ~/.bashrc
 nw-dir ~/work
 
 # link the first drive directory to ~/work (WORKDIR)
-DISKPATH=$(realpath ~/work)
-ln -sv $DISKPATH $WORKDIR
+WORKDIR=$(realpath ~/work)
 
 # install miniforge at ~/
 wget "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-$(uname)-$(uname -m).sh"
