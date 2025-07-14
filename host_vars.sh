@@ -4,11 +4,11 @@ declare -A vsrunroot
 declare -A vscondaroot
 declare -A vshfroot #hf cache
 
-vshomeroot['MSI']=/workspace
-vsdevroot['MSI']=/workspace/dev
-vsrunroot['MSI']=/workspace/run
-vscondaroot['MSI']=/home/vs9/miniforge3
-vshfroot['MSI']=/workspace/huggingface
+vshomeroot['MSI']=/root/work
+vsdevroot['MSI']=/root/work/dev
+vsrunroot['MSI']=/root/work/run
+vscondaroot['MSI']=/root/miniforge3
+vshfroot['MSI']=/root/work/huggingface
 
 HOSTID=$(uname -n)
 VS_HOME_DIR=${vshomeroot[$HOSTID]}
