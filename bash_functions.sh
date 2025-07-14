@@ -263,12 +263,12 @@ st-vsc-workspace-theme() {
 # set workspace color theme
 st-vsc-docker-theme() {
     nw-dir .vscode
-    local theme_file=".vscode/settings.json"
+    local theme_file=".vscode-server/data/Machine/settings.json"
     if [ ! -f "$theme_file" ]; then
         touch "$theme_file"
     fi
 
-    echo '{"workbench.colorTheme": "Dracula Theme"}' >> "$theme_file"
+    echo '{"workbench.colorTheme": "Visual Studio Dark"}' >> "$theme_file"
 }
 #= misc ====================================================================
 pprint-csv() {
