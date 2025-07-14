@@ -190,6 +190,34 @@ gc() {
         fi
     fi
 }
+
+#= docker ====================================================================
+function ls-docker {
+    local sudo_cmd=""
+    [[ $EUID -ne 0 ]] && sudo_cmd="sudo"
+
+    $sudo_cmd docker ps --format "{{.ID}} | {{.Image}} | {{.Names}} | {{.Status}}"
+    get-latest-docker
+}
+
+function docker-terminal {
+    local sudo_cmd=""
+    [[ $EUID -ne 0 ]] && sudo_cmd="sudo"
+
+    $sudo_cmd docker exec -it $1 bash
+}
+
+function get-latest-docker {
+    local sudo_cmd=""
+    [[ $EUID -ne 0 ]] && sudo_cmd="sudo"
+
+    export latest_docker=$($sudo_cmd docker ps -n=-1 --format "{{.ID}}")
+}
+
+function dt {
+    docker-terminal $latest_docker
+}
+
 #= TMUX ====================================================================
 ls-tmux() {
 	tmux ls
@@ -222,7 +250,7 @@ rm-tmux() {
 
 #= vscode===================================================================
 # set workspace color theme
-set-vscode-theme() {
+st-vsc-workspace-theme() {
     nw-dir .vscode
     local theme_file=".vscode/settings.json"
     if [ ! -f "$theme_file" ]; then
@@ -232,6 +260,16 @@ set-vscode-theme() {
     echo '{"workbench.colorTheme": "Dracula Theme"}' >> "$theme_file"
 }
 
+# set workspace color theme
+st-vsc-docker-theme() {
+    nw-dir .vscode
+    local theme_file=".vscode/settings.json"
+    if [ ! -f "$theme_file" ]; then
+        touch "$theme_file"
+    fi
+
+    echo '{"workbench.colorTheme": "Dracula Theme"}' >> "$theme_file"
+}
 #= misc ====================================================================
 pprint-csv() {
     column -t -s, $@
