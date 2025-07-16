@@ -158,7 +158,12 @@ rm-conda-env() {
     fi    
 }
 
-print-site_packages-path() {
+pp-python-setup() {
+    printf "\n### Which python:\n"
+    which python
+    printf "\n### sys.path:\n"
+    python -c "import sys; print('\n'.join(sys.path))"
+    printf "\n### Site-packages path:\n"
     python -c "import site; print(site.getsitepackages()[0])"
 }
 #= GIT =====================================================================
