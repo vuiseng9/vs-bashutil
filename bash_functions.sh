@@ -227,7 +227,7 @@ switch-vs-bashutil-to-branch() {
     fi
 }
 #= docker ====================================================================
-function ls-docker {
+ls-docker() {
     local sudo_cmd=""
     [[ $EUID -ne 0 ]] && sudo_cmd="sudo"
 
@@ -235,21 +235,21 @@ function ls-docker {
     get-latest-docker
 }
 
-function docker-terminal {
+docker-terminal() {
     local sudo_cmd=""
     [[ $EUID -ne 0 ]] && sudo_cmd="sudo"
 
     $sudo_cmd docker exec -it $1 bash
 }
 
-function get-latest-docker {
+get-latest-docker() {
     local sudo_cmd=""
     [[ $EUID -ne 0 ]] && sudo_cmd="sudo"
 
     export latest_docker=$($sudo_cmd docker ps -n=-1 --format "{{.ID}}")
 }
 
-function dt {
+dt() {
     docker-terminal $latest_docker
 }
 
