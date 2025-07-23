@@ -196,6 +196,36 @@ gc() {
     fi
 }
 
+default-vs-bashutil-to-main() {
+    # Check if vs-bashutil is on main branch
+    if [ -d ~/vs-bashutil/.git ]; then
+        branch=$(git -C ~/vs-bashutil rev-parse --abbrev-ref HEAD)
+        if [ "$branch" != "main" ]; then
+            echo -e "\033[33mWARNING: vs-bashutil is on branch '$branch', not 'main'.\033[0m"
+            switch-vs-bashutil-to-branch main
+        else
+            echo -e "\033[32mvs-bashutil is on branch 'main'.\033[0m"
+        fi
+    fi
+}
+
+switch-vs-bashutil-to-branch() {
+    local branch="$1"
+    current_branch=$(git -C ~/vs-bashutil rev-parse --abbrev-ref HEAD)
+    # Switch vs-bashutil to main branch if not already on main
+    if [ -d ~/vs-bashutil/.git ] && [ "$current_branch" != "$branch" ]; then
+        #check if there is any uncommitted changes
+        if ! git -C ~/vs-bashutil diff-index --quiet HEAD --; then
+            echo -e "\033[31mUncommitted changes detected in vs-bashutil. \nWe go ahead and switch branch anyway. \nPlease come back and check!.\033[0m"
+        fi
+        git -C ~/vs-bashutil checkout $branch
+        if [ $? -eq 0 ]; then
+            echo -e "\033[32mSwitched vs-bashutil to branch '$branch'.\033[0m"
+        else
+            echo -e "\033[31mFailed to switch vs-bashutil to branch '$branch'. Potential uncommited changes that conflict.\033[0m"
+        fi
+    fi
+}
 #= docker ====================================================================
 function ls-docker {
     local sudo_cmd=""
